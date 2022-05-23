@@ -1,0 +1,22 @@
+{% extends "basic_user.html" %} 
+  {% block body_block %}
+    <h1> hello {{ user.username }} your role is user</h1>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Picture</th>
+            <th>Submit</th>
+        </tr>
+        {% for name in data %}
+        <tr>
+            <td>{{ name.id }}</td>
+            <td>{{ name.name }}</a></td>
+            <td>{{ name.age }}</td>
+            <td><img src="/media/{{ name.picture }}"></td>
+            <td><a href="/MiPIS/submit/{{ name.id }}">Submit here</a></td>
+        </tr>
+        {% endfor %}
+    {% endblock %}   
+</html>
