@@ -25,4 +25,7 @@ urlpatterns = [
     path('accounts/login/', views.login_view, name='login'),
     path('',views.index,name='Index'), 
     path('MiPIS/',include('MiPIS.urls'))
-]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
