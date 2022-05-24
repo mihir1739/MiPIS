@@ -1,9 +1,9 @@
 {
-    "name": "project_name",
+    "name": "MiPIS",
     "version": "1.0.0",
-    "description": "Project Description",
+    "description": "Missing Person Identification System",
     "scripts": {
-      "start": "serve",
+      "start": "serve"
     },
     "dependencies": {
       "serve": "^10.0.1"
