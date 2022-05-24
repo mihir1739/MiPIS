@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-myzloxc(kmk*uk#y_t!+=ih#l75m#_a*mcg#9#=+p=so!smb@i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','https://safe-retreat-62334.herokuapp.com/']
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','mipis.herokuapp.com']
 
 
 # Application definition
