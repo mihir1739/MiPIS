@@ -15,16 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from MiPIS import urls,views
-from django.urls import path,include
+from django.urls import path,include,re_path
 from django.conf import settings
-from django.conf.urls.static import static
+from django.conf.urls.static import static,serve
 app_name = 'MiPIS' 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('django.contrib.auth.urls')),
     path('accounts/login/', views.login_view, name='login'),
     path('',views.index,name='Index'), 
-    path('MiPIS/',include('MiPIS.urls'))
+    path('MiPIS/',include('MiPIS.urls')),
+    re_path(r'^media/(?P<path>.*)$',serve,{'document_root' : settings.MEDIA_ROOT})
 ]
 
 if settings.DEBUG:
