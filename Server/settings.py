@@ -79,17 +79,15 @@ WSGI_APPLICATION = 'Server.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'MiPIS',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'USER': 'mihir',
-        'PASSWORD': '1111',
-    },
-    'OPTIONS': {
-     "init_command": "SET foreign_key_checks = 0;",
-     },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
+    }
 }
+##setting up the PostgreSQL on heroku
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
