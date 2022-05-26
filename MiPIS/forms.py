@@ -83,7 +83,6 @@ class DataForm(forms.ModelForm):
             }
         )
     )
-    x = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
     class Meta:
         model = Data
         fields = ('name','picture','age','contact')

@@ -5,6 +5,12 @@ import os
 from PIL import Image
 from django.conf import settings
 def compare(a,b):
+    '''
+    API call request sent from here.Used to find similiarity between the faces.
+    Parameters:
+    a: path to first image.
+    b: path to secind image.
+    '''
     url = "https://api-us.faceplusplus.com/facepp/v3/compare"
     api_key = "Dq2Wy1yC_mKVIc--6Paiysiaxo1laa2Z"
     api_secret = "KAhncIFWAOjqUu2vFqOZG2WGvD_LK7Il"

@@ -8,8 +8,8 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from MiPIS.notify import sendsms
 
-scores = {}
-CURR_USER = None
+global scores = {}
+global CURR_USER 
 
 app_name = 'MiPIS'
 
@@ -151,12 +151,15 @@ def fake_call(request,id):
     else:
         return redirect('approve')
 
+def daer():
+    score_sorted_keys = sorted(scores, key=scores.get, reverse=True)
+    tbr = {}
+    for i in score_sorted_keys:
+        tbr[i] = scores[i]
+    return tbr
 
-score_sorted_keys = sorted(scores, key=scores.get, reverse=True)
-tbr = {}
-for i in score_sorted_keys:
-    tbr[i] = scores[i]
 @login_required
 def leaderboard(request):
+    tbr = daer()
     return render(request,'scores.html',{'tbr':tbr})
 
