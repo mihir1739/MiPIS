@@ -5,6 +5,7 @@
     margin: 2;
     padding: 1;
     box-sizing: border-box;
+    font-size: large;
     font-family: 'Poppins', sans-serif;
     transition: all 0.4s ease;;
 }

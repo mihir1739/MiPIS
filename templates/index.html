@@ -1,111 +1,17 @@
-<!DOCTYPE html>
+{% extends "basic.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="{% static "css/style.css" %}"/> 
-        
-    <!-- ===== Boxicons CSS ===== -->
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-
-    <title>MiPIS</title>
-</head>
-<body>
-    <nav>
-        <div class="nav-bar">
-            <i class='bx bx-menu sidebarOpen' ></i>
-            <span class="logo navLogo"><a href="#">MiPIS</a></span>
-
-            <div class="menu">
-                <div class="logo-toggle">
-                    <span class="logo"><a href="#">MiPIS</a></span>
-                    <i class='bx bx-x siderbarClose'></i>
-                </div>
-
-                <ul class="nav-links">
-                    <li><a href="{% url 'index' %}">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="{% url 'register' %}">Register</a></li>
-                    <li><a href="{% url 'login_view' %}">Login</a></li>
-                </ul>
-            </div>
-
-            <div class="darkLight-searchBox">
-                <div class="dark-light">
-                    <i class='bx bx-moon moon'></i>
-                    <i class='bx bx-sun sun'></i>
-                </div>
-
-                <div class="searchBox">
-                   <div class="searchToggle">
-                    <i class='bx bx-x cancel'></i>
-                    <i class='bx bx-search search'></i>
-                   </div>
-
-                    <div class="search-field">
-                        <input type="text" placeholder="Search...">
-                        <i class='bx bx-search'></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-      {% block body_block %} 
-        <h1>Welcome to mifis</h1> 
-      {% endblock %} 
-    </div> 
-<script>
-
-const body = document.querySelector("body"),
-      nav = document.querySelector("nav"),
-      modeToggle = document.querySelector(".dark-light"),
-      searchToggle = document.querySelector(".searchToggle"),
-      sidebarOpen = document.querySelector(".sidebarOpen"),
-      siderbarClose = document.querySelector(".siderbarClose");
-
-      let getMode = localStorage.getItem("mode");
-          if(getMode && getMode === "dark-mode"){
-            body.classList.add("dark");
-          }
-
-// js code to toggle dark and light mode
-      modeToggle.addEventListener("click" , () =>{
-        modeToggle.classList.toggle("active");
-        body.classList.toggle("dark");
-
-        // js code to keep user selected mode even page refresh or file reopen
-        if(!body.classList.contains("dark")){
-            localStorage.setItem("mode" , "light-mode");
-        }else{
-            localStorage.setItem("mode" , "dark-mode");
-        }
-      });
-
-// js code to toggle search box
-        searchToggle.addEventListener("click" , () =>{
-        searchToggle.classList.toggle("active");
-      });
- 
-      
-//   js code to toggle sidebar
-sidebarOpen.addEventListener("click" , () =>{
-    nav.classList.add("active");
-});
-
-body.addEventListener("click" , e =>{
-    let clickedElm = e.target;
-
-    if(!clickedElm.classList.contains("sidebarOpen") && !clickedElm.classList.contains("menu")){
-        nav.classList.remove("active");
-    }
-});
-
-</script>
-
-</body>
+<title>{% block title %} Home {% endblock %}</title>
+  {% block body_block %}
+    <div class="conatiner">
+        <p>A missing person is a person who has disappeared and whose status as alive or dead cannot be confirmed as their location and condition unknown. 
+            A person may go missing through a voluntary disappearance, or else due to an accident, crime, death in a location where they cannot be found (such as at sea), or many other reasons.
+            In most parts of the world, a missing person will usually be found quickly. While criminal abductions are some of the most widely reported missing person cases, these account for only 2-5% of missing children in Europe.
+            By contrast, some missing person cases remain unresolved for many years. Laws related to these cases are often complex since, in many jurisdictions, relatives and third parties may not deal with a person's assets until their death is considered proven by law and a formal death certificate issued. 
+            The situation, uncertainties, and lack of closure or a funeral resulting when a person goes missing may be extremely painful with long-lasting effects on family and friends.A number of organizations seek to connect, share best practices, and disseminate information and images of missing children to improve the effectiveness of missing children investigations, including the International Commission on Missing Persons, the International Centre for Missing & Exploited Children (ICMEC), as well as national organizations, including the National Center for Missing & Exploited Children in the US, Missing People in the UK, Child Focus in Belgium, and The Smile of the Child in Greece.</p>
+            <img src="{% static "images/images.jpeg" %}">
+        <p>With MiPIS you can bring all these peoples home with a small effort from your side. Register and become part of this family aimed to bring all these missing peoples back to their home with a smile on their home.
+            All you need to do is to click a photo when you come across a missing person enlisted on our site and we'll take care of the rest. Let's join hand to ensure that all missing person come back to their home.
+        </p>
+    </div>
+  {% endblock %}   
 </html>

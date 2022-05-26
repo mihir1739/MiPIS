@@ -1,4 +1,4 @@
-{% extends "basic_staff.html" %} 
+{% extends "basic_admin.html" %} 
   {% block body_block %}
     <table border="1">
         <tr>
@@ -7,6 +7,7 @@
             <th>Uploaded Picture</th>
             <th>Accuracy</th>
             <th>Approve</th>
+            <th>Remove</th>
         </tr>
         {% for name in data %}
         <tr>
@@ -15,6 +16,7 @@
             <td><img src="/media/{{ name.similiar }}"></td>
             <td>{{ name.accuracy }}</td>
             <td><a href="/MiPIS/approveme/{{ name.id }}">Approve and Remove</a></td>
+            <td><a href="/MiPIS/fakecall/{{ name.id }}">Remove</a></td>
         </tr>
         {% endfor %}
     {% endblock %}   

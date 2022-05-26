@@ -6,19 +6,26 @@ from django.http import HttpResponse,HttpResponseRedirect
 from MiPIS.forms import SignUpForm,LoginForm,DataForm,EditForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
-import PIL
+from MiPIS.notify import sendsms
 
+scores = {}
+CURR_USER = None
 
 app_name = 'MiPIS'
 
 def index(request): 
     return render(request,'index.html') 
 
+def about(request):
+    return render(request,'about.html')
+
 def register(request):
     msg = None
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
+            usr = form.cleaned_data.get('username')
+            scores[usr]= 0
             user = form.save()
             msg = 'user created'
             return redirect('login_view')
@@ -41,6 +48,7 @@ def login_view(request):
                 login(request, user)
                 return redirect('adminpage')
             elif user is not None and user.is_user:
+                CURR_USER = request.user.username
                 login(request, user)
                 return redirect('customer')
             elif user is not None and user.is_staff:
@@ -56,6 +64,9 @@ def login_view(request):
 def admin(request):
     return render(request,'admin.html')
 
+def employee(request):
+    return render(request,'employee.html')
+
 
 def customer(request):
     dat = Data.objects.all()
@@ -64,6 +75,7 @@ def customer(request):
     }
     return render(request,'user.html',st)
 
+@login_required
 def database(request):
     msg = None
     if request.method == 'POST':
@@ -80,8 +92,6 @@ def database(request):
     else:
         form = DataForm()
     return render(request, 'data.html', {'form': form})
-def employee(request):
-    return render(request,'employee.html')
 
 @login_required
 def user_logout(request):
@@ -97,15 +107,13 @@ def update(request,id):
         if form.is_valid():
             similiar = form.cleaned_data.get('similiar')
             loc = form.cleaned_data.get('location')
-            prev1 = dis.similiar
-            prev2 = dis.location
             data = Data(id=id,similiar=similiar,age=dis.age,name=dis.name,picture=dis.picture,location=loc)
             data.save()
             dis = Data.objects.get(id=id)
-            acc = compare(dis.picture, dis.similiar)
-            datave = Data(id=id,similiar=similiar,age=dis.age,name=dis.name,picture=dis.picture,location=loc,accuracy=acc)
+            acc = compare(str(dis.picture), str(dis.similiar))
+            data = Data(id=id,similiar=similiar,age=dis.age,name=dis.name,picture=dis.picture,location=loc,accuracy=acc)
             data.save()
-            return redirect('customer')
+            return HttpResponse(f"the accuracy was{acc}")
         else:
             msg = 'form is not valid'
     else:
@@ -119,12 +127,36 @@ def approve(request):
         "data":dat
     }
     return render(request,'approve.html',st)
-    
+
+@login_required   
 def foundem(request,id):
     if(request.method == 'GET'):
         dis = Data.objects.get(id=id)
-        data = Data(id=id,similiar=dis.similiar,age=dis.age,name=dis.name,picture=dis.picture,location=dis.location,found=True)
-        data.delete()
+        if sendsms(dis.contact,dis.location,dis.name):
+            dis.delete()
+            return HttpResponse("Notified Complaint Lodger!")
+        else:
+            return HttpResponse("Couldn't Notify the Authorities!")
         return redirect('approve')
     else:
         return redirect('approve')
+    
+@login_required
+def fake_call(request,id):
+    if(request.method == 'GET'):
+        dis = Data.objects.get(id = id)
+        data = Data(id=id,age=dis.age,name=dis.name,picture=dis.picture,contact=dis.contact)
+        data.save()
+        return redirect('approve')
+    else:
+        return redirect('approve')
+
+
+score_sorted_keys = sorted(scores, key=scores.get, reverse=True)
+tbr = {}
+for i in score_sorted_keys:
+    tbr[i] = scores[i]
+@login_required
+def leaderboard(request):
+    return render(request,'scores.html',{'tbr':tbr})
+

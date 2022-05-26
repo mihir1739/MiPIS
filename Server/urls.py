@@ -13,7 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.views.generic.base import RedirectView
 from django.contrib import admin
+from django.contrib.staticfiles.storage import staticfiles_storage
 from MiPIS import urls,views
 from django.urls import path,include,re_path
 from django.conf import settings
@@ -24,8 +26,8 @@ urlpatterns = [
     path('users/', include('django.contrib.auth.urls')),
     path('accounts/login/', views.login_view, name='login'),
     path('',views.index,name='Index'), 
-    path('MiPIS/',include('MiPIS.urls')),
-    re_path(r'^media/(?P<path>.*)$',serve,{'document_root' : settings.MEDIA_ROOT})
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
+    path('MiPIS/',include('MiPIS.urls'))
 ]
 
 if settings.DEBUG:

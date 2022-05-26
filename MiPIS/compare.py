@@ -1,25 +1,46 @@
 import requests
 import json
+import base64
+import os
+from PIL import Image
 from django.conf import settings
 def compare(a,b):
     url = "https://api-us.faceplusplus.com/facepp/v3/compare"
     api_key = "Dq2Wy1yC_mKVIc--6Paiysiaxo1laa2Z"
     api_secret = "KAhncIFWAOjqUu2vFqOZG2WGvD_LK7Il"
-    image1_url = "https://cdn.britannica.com/48/222648-050-F4D0A2D8/President-of-India-A-P-J-Abdul-Kalam-2007.jpg"
-    image2_url = "https://img.etimg.com/thumb/width-1200,height-900,imgsize-56008,resizemode-1,msid-48264767/news/politics-and-nation/former-president-apj-abdul-kalams-unfinished-lecture-to-appear-in-new-book.jpg"
+    img1_path = os.path.join(settings.MEDIA_ROOT,str(a))
+    img2_path =  os.path.join(settings.MEDIA_ROOT,str(b))
+    image1 = Image.open(img1_path)
+    image2 = Image.open(img2_path)
+    # e_i1 = base64.b64encode(image1)
+    # e_i2 = base64.b64encode(image2)
 
-    data = {"api_key":api_key,
-            "api_secret":api_secret,
-            "image_url1":image1_url,
-            "image_url2":image2_url}
+    
+    r = requests.post(url=url,data={
+        "api_key":api_key,
+        "api_secret":api_secret,
+        "image_base64_1":base64.b64encode(open(img1_path, "rb").read()),
+        "image_base64_2":base64.b64encode(open(img2_path, "rb").read())
+    })
 
-    r = requests.post(url=url,data=data)
+    file = open('geek.txt', 'w')
     f = dict(r.json())
-    return f["confidence"]
+    file.write(str(f))
+    return f['confidence']
+    
 
 # def compare(a,b):
-#     a = settings.MEDIA_URL + str(a)
-#     b = settings.MEDIA_URL + str(b)
+#     a = 'http://' + settings.ALLOWED_HOSTS[3]+ settings.MEDIA_URL + str(a)
+#     b = 'http://' + settings.ALLOWED_HOSTS[3]+ settings.MEDIA_URL + str(b)
 #     print(a)
 #     print(b)
 #     return 90.0
+# x = compare(12,5)
+# print(x)
+# image1 = Image.open('/home/mihir/Code/Engage/Server/media/images/staff/APJ.jpeg')
+# with open('/home/mihir/Code/Engage/Server/media/images/staff/APJ.jpeg', "rb") as img1_file:
+#     e_i1 = base64.b64encode(img1_file.read())
+# print(e_i1)
+# e_i1 = base64.b64encode(image1)
+# print(e_i1)
+# image2 = Image.open(img2_path)

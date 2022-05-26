@@ -4,6 +4,7 @@ from django.urls import path
 
 urlpatterns = [
     path('', views.index, name= 'index'),
+    path('about/',views.about,name= 'about'),
     path('login/', views.login_view, name='login_view'),
     path('register/', views.register, name='register'),
     path('adminpage/', views.admin, name='adminpage'),
@@ -13,5 +14,7 @@ urlpatterns = [
     path('data/',views.database,name='database'),
     path('submit/<int:id>',views.update),
     path('approve/',views.approve,name='approve'),
-    path('approveme/<int:id>',views.foundem,name='approve me')
+    path('score/',views.leaderboard,name='score'),
+    path('approveme/<int:id>',views.foundem,name='approve me'),
+    path('fakecall/<int:id>',views.fake_call,name='Fakecall')
 ]

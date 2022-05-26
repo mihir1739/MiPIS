@@ -21,20 +21,6 @@ class LoginForm(forms.Form):
 
 
 class SignUpForm(UserCreationForm):
-    firstname = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control"
-            }
-        )
-    )
-    lastname =  forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control"
-            }
-        )
-    )
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -66,7 +52,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('firstname','lastname','username', 'email', 'password1', 'password2', 'is_admin', 'is_staff', 'is_user')
+        fields = ('first_name','last_name','username', 'email', 'password1', 'password2', 'is_admin', 'is_staff', 'is_user')
 
 class DataForm(forms.ModelForm):
     name = forms.CharField(
@@ -90,10 +76,17 @@ class DataForm(forms.ModelForm):
             }
         )
     )
+    contact = forms.CharField(
+        widget=forms.NumberInput(
+            attrs={
+                "class":"form-control"
+            }
+        )
+    )
     x = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
     class Meta:
         model = Data
-        fields = ('name','picture','age')
+        fields = ('name','picture','age','contact')
 
 class EditForm(forms.ModelForm):
     similiar = forms.ImageField(

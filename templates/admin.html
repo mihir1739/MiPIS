@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>admin page</title>
-</head>
-<body>
-    <h1> hello {{ user.username }} your role is admin</h1>
-</body>
+{% extends "basic_staff.html" %} 
+<title>{% block title %} Admin {% endblock %}</title>
+  {% block body_block %}
+    <h1> hello <em>{{ user.first_name }}</em>. You are signed in as Admin</h1>
+    <button type="submit"><a href="{% url 'database' %}">Create Entry</a></button>
+    <button type="submit"><a href="{% url 'approve' %}">Approve</a></button>
+    <button type="submit"><a href="{% url 'logout' %}">Logout</a></button>
+    {% endblock %}   
 </html>

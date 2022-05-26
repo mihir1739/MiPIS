@@ -1,0 +1,19 @@
+{% extends "basic_user.html" %} 
+<title>{% block title %} Scores {% endblock %}</title>
+  {% block body_block %}
+    <div class="container"> 
+        <table border="1">
+            <tr>
+                <th>User</th>
+                <th>Scores</th>
+            </tr>
+            {% for i,j in tbr.items %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ j }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div> 
+    {% endblock %}   
+</html>

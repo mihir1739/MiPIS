@@ -1,7 +1,8 @@
 {% extends "basic_staff.html" %} 
+<title>{% block title %} Staff {% endblock %}</title>
   {% block body_block %}
-    <h1> hello {{ user.username }} your role is employee</h1>
-    <button type="submit"><a href="{% url 'database' %}">Create Database</a></button>
+    <h1> hello <em>{{ user.first_name }}</em>. You are signed in as an employee</h1>
+    <button type="submit"><a href="{% url 'database' %}">Create Entry</a></button>
     <button type="submit"><a href="{% url 'logout' %}">Logout</a></button>
     {% endblock %}   
 </html>

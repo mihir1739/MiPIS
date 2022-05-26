@@ -16,6 +16,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMP_DIR = os.path.join(BASE_DIR,'templates') 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+print(MEDIA_ROOT)
 MEDIA_URL = 'media/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -24,9 +25,9 @@ MEDIA_URL = 'media/'
 SECRET_KEY = 'django-insecure-myzloxc(kmk*uk#y_t!+=ih#l75m#_a*mcg#9#=+p=so!smb@i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','mipis.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','mipis.herokuapp.com','mahakaal17.pythonanywhere.com']
 
 
 # Application definition
@@ -34,6 +35,7 @@ ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','mipis.herokuapp.com']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'phonenumber_field',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -77,16 +79,31 @@ WSGI_APPLICATION = 'Server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'mydatabase',
+#     }
+# }
+# ##setting up the PostgreSQL on heroku
+# import dj_database_url
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'MiPIS',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'USER': 'mihir',
+        'PASSWORD': '1111',
+    },
+    'OPTIONS': {
+     "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+     },
 }
-##setting up the PostgreSQL on heroku
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
 
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
