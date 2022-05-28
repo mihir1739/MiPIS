@@ -1,0 +1,14 @@
+{% extends "basic.html" %}
+  <title>{% block title %} Login {% endblock %}</title>
+  {% block body_block %}
+    <h1>Welcome Back!</h1>
+    <div class="container"> 
+      <form method="POST"> 
+        {{ form.as_p }} 
+        {% csrf_token %} 
+        <input type="submit" class="btn btn-primary" value="Submit"> 
+      </form> 
+      <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+    </div> 
+  {% endblock %}   
+</html>

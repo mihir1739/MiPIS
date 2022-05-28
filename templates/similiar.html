@@ -1,0 +1,7 @@
+{% extends "basic_user.html" %} 
+<title>{% block title %} ThankYou! {% endblock %}</title>
+  {% block body_block %}
+    <h1> Hi {{ user.first_name }}. ThankYou for your submission.</h1>
+    <h2> The match was found to be {{ acc }}. Great!</h2>
+  {% endblock %}
+</html>

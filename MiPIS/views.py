@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 import random, string
-from MiPIS.models import Data
+from MiPIS.models import Data,User,Score
 from MiPIS.compare import compare
 from django.http import HttpResponse,HttpResponseRedirect 
-from MiPIS.forms import SignUpForm,LoginForm,DataForm,EditForm
+from MiPIS.forms import SignUpForm,LoginForm,DataForm,EditForm,Forgot
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from MiPIS.notify import sendsms
@@ -36,8 +36,11 @@ def register(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             usr = form.cleaned_data.get('username')
-            scores[usr]= 0
             user = form.save()
+            uid = request.user.id
+            it = User.objects.get(username=usr)
+            ud = Score.objects.create(uname=usr,idinu=it.id)
+            ud.save()
             msg = 'user created'
             return redirect('login_view')
         else:
@@ -62,7 +65,6 @@ def login_view(request):
                 login(request, user)
                 return redirect('adminpage')
             elif user is not None and user.is_user:
-                CURR_USER = request.user.username
                 login(request, user)
                 return redirect('customer')
             elif user is not None and user.is_staff:
@@ -74,10 +76,11 @@ def login_view(request):
             msg = 'error validating form'
     return render(request, 'login.html', {'form': form})
 
-
+@login_required
 def admin(request):
     return render(request,'admin.html')
 
+@login_required
 def employee(request):
     return render(request,'employee.html')
 
@@ -116,6 +119,7 @@ def user_logout(request):
 @login_required
 def update(request,id):
     dis = Data.objects.get(id=id)
+    uid = request.user.id
     if(request.method == 'POST'):
         form = EditForm(request.POST,request.FILES)
         if form.is_valid():
@@ -125,9 +129,9 @@ def update(request,id):
             data.save()
             dis = Data.objects.get(id=id)
             acc = compare(str(dis.picture), str(dis.similiar))
-            data = Data(id=id,similiar=similiar,age=dis.age,name=dis.name,picture=dis.picture,location=loc,accuracy=acc)
+            data = Data(id=id,similiar=similiar,age=dis.age,name=dis.name,picture=dis.picture,location=loc,accuracy=acc,found_id=uid)
             data.save()
-            return HttpResponse(f"the accuracy was{acc}")
+            return render(request,'similiar.html',{'acc':acc})
         else:
             msg = 'form is not valid'
     else:
@@ -146,7 +150,13 @@ def approve(request):
 def foundem(request,id):
     if(request.method == 'GET'):
         dis = Data.objects.get(id=id)
+        uid = dis.found_id
+        founder = Score.objects.get(idinu=uid)
+        rew = founder.id
+        prev = founder.score
         if sendsms(dis.contact,dis.location,dis.name):
+            data = Score(id = founder.id,uname = founder.uname,score=prev+1,idinu=uid)
+            data.save()
             dis.delete()
             return HttpResponse("Notified Complaint Lodger!")
         else:
@@ -165,14 +175,22 @@ def fake_call(request,id):
     else:
         return redirect('approve')
 
-def daer():
-    score_sorted_keys = sorted(scores, key=scores.get, reverse=True)
-    tbr = {}
-    for i in score_sorted_keys:
-        tbr[i] = scores[i]
-    return tbr
 
 @login_required
 def leaderboard(request):
+    tbr = Score.objects.all().order_by('score').reverse()
     return render(request,'scores.html',{'tbr':tbr})
 
+def forget(request):
+    form = Forgot()
+    if(request.method=='POST'):
+        user = form.cleaned_data.get('username')
+        password1 = form.cleaned_data.get('password')
+        u = User.objects.get(username=user)
+        u.set_password(password1)
+        u.save()
+        return redirect('login_view')
+
+    else: 
+        return render(request,'forgot.html',{'form':form})
+    

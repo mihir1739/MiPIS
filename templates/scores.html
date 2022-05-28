@@ -2,15 +2,15 @@
 <title>{% block title %} Scores {% endblock %}</title>
   {% block body_block %}
     <div class="container"> 
-        <table border="1">
+        <table border="1" class="center">
             <tr>
                 <th>User</th>
                 <th>Scores</th>
             </tr>
-            {% for i,j in tbr.items %}
+            {% for f in tbr %}
             <tr>
-                <td>{{ i }}</td>
-                <td>{{ j }}</td>
+                <td>{{ f.uname }}</td>
+                <td>{{ f.score }}</td>
             </tr>
             {% endfor %}
         </table>

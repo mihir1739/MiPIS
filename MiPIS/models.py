@@ -4,6 +4,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 class User(AbstractUser):
+    '''
+    User Model
+    '''
     first_name = models.CharField('First Name',max_length=20,blank=False)
     last_name = models.CharField('Last Name',max_length=20,blank=False)
     is_admin= models.BooleanField('Is admin', default=False)
@@ -11,6 +14,9 @@ class User(AbstractUser):
     is_staff = models.BooleanField('Is staff', default=False)
 
 class Data(models.Model):
+    '''
+    Missing Person Data Model.
+    '''
     name = models.CharField(blank=False,max_length=25)
     picture = models.ImageField(upload_to = "images/staff/")
     age = models.IntegerField()
@@ -18,3 +24,9 @@ class Data(models.Model):
     similiar = models.ImageField(blank=True,upload_to = "images/users/")
     location = models.CharField(blank=True,max_length=50)
     accuracy = models.DecimalField(blank=True,default=0,max_digits=5,decimal_places=2)
+    found_id = models.IntegerField(blank=True,default=0)
+
+class Score(models.Model):
+    uname = models.CharField(max_length=20,blank=False)
+    idinu = models.IntegerField(unique=True)
+    score = models.IntegerField(default=0,blank=False)

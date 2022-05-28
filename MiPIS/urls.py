@@ -14,6 +14,7 @@ urlpatterns = [
     path('data/',views.database,name='database'),
     path('submit/<int:id>',views.update),
     path('approve/',views.approve,name='approve'),
+    path('forgot/',views.forget,name='forgot'),
     path('score/',views.leaderboard,name='score'),
     path('approveme/<int:id>',views.foundem,name='approve me'),
     path('fakecall/<int:id>',views.fake_call,name='Fakecall')
