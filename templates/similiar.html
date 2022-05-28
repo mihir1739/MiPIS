@@ -3,5 +3,6 @@
   {% block body_block %}
     <h1> Hi {{ user.first_name }}. ThankYou for your submission.</h1>
     <h2> The match was found to be {{ acc }}. Great!</h2>
+    <a href="{% url 'customer' %}" class="btn btn-primary">Go back</a>
   {% endblock %}
 </html>

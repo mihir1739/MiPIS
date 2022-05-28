@@ -10,11 +10,13 @@ def sendsms(number,location,name):
         "to": "91"+number,
         "text": f"Mr/Miss {name} was last seen at {location}.Please make required amends.Regards MiPIS"
     }
+    file = open("errr.txt","w")
+    file.write("91"+number)
     responseData = sms.send_message(data)
     if responseData["messages"][0]["status"] == "0":
         return True
     else:
-        file = open("error.txt","w")
+        file = open("error.txt","a")
         file.write(f"Message failed with error: {responseData['messages'][0]['error-text']}")
         return False
 
