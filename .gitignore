@@ -1,7 +1,9 @@
 __pycache__
+__pycache__/*
 */migrations/**
 !*/migrations
 !*/migrations/__init__.py
 error.txt
 geek.txt
 db.sqlite3
+MiPIS/__pycache__/views.cpython-310.pyc

@@ -14,12 +14,23 @@ global CURR_USER
 app_name = 'MiPIS'
 
 def index(request): 
+    '''
+    returns Home Page view.
+    '''
     return render(request,'index.html') 
 
+
 def about(request):
+    '''
+    returns the About Page.
+    '''
     return render(request,'about.html')
 
+
 def register(request):
+    '''
+    A view to register new users.
+    '''
     msg = None
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -37,6 +48,9 @@ def register(request):
 
 
 def login_view(request):
+    '''
+    view for existing users to login
+    '''
     form = LoginForm(request.POST or None)
     msg = None
     if request.method == 'POST':
