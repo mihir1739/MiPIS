@@ -10,7 +10,7 @@ Features
 * Finds out a person based on image submited by the user and notifies the concerned authorities.
 * Uses Face Recognition as well as Manual Approval before confirming a find claim by a user.
 * User is notified through SMS about the whereabouts of the missing person through SMS message.
-* A leaderboard of users based on persons correctly found by them! (in Progress)
+* A leaderboard of users based on persons correctly found by them!
 Future Prospects/ Not Implemented features
 ------------------------------------------
 * User side of the Website can be integrated to a mobile App.
