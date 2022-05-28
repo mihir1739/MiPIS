@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from MiPIS.notify import sendsms
 
-global scores = {}
+global scores
 global CURR_USER 
 
 app_name = 'MiPIS'
@@ -160,6 +160,5 @@ def daer():
 
 @login_required
 def leaderboard(request):
-    tbr = daer()
     return render(request,'scores.html',{'tbr':tbr})
 

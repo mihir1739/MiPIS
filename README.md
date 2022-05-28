@@ -26,11 +26,12 @@ Installation
 * Add the `Server` file to your path.
 * It is advised to create a virtual environment in python or use `source MyEnv/bin/activate` in the parent cloned directory the activate My Virtual Environment.
 * Now install the required libraries by typing `pip install -r requirements.txt` to install them at once.
+* Ensure that MySQL client is setup and running also the settings are properly configured in `settings.py`. If Using Arch linux install mariadb and start it by typing `systemctl start mariadb.service`.And create a database called MiPIS by `CREATE DATABASE MiPIS;`.
 * Now at the same directory as `manage.py` run the server through Gunicorn.` gunicorn Server.wsgi` or `python manage.py runserver`. Whatever works out fine.
 * Now you can open the WebApp in your LocalHost.
 
 Online Hosting Availiable
 -------------------------
-The Webapp is also hosted here [MiPIS](http://mahakaal17.pythonanywhere.com/). But due to issues with free tier the face API Times out and gives undesirable issues so local version is preferred.
+The Webapp is also hosted here [MiPIS](http://mahakaal17.pythonanywhere.com/). But due to issues with free tier  of PythonAnywhere the face API Times out and gives undesirable issues so local version is preferred.
 
 Thank You For Using Mipis.
