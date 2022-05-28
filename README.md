@@ -10,7 +10,7 @@ Features
 * Finds out a person based on image submited by the user and notifies the concerned authorities.
 * Uses Face Recognition as well as Manual Approval before confirming a find claim by a user.
 * User is notified through SMS about the whereabouts of the missing person through SMS message.
-
+* A leaderboard of users based on persons correctly found by them! (in Progress)
 Future Prospects/ Not Implemented features
 ------------------------------------------
 * User side of the Website can be integrated to a mobile App.
@@ -30,7 +30,7 @@ Installation
 * Now at the same directory as `manage.py` run the server through Gunicorn.` gunicorn Server.wsgi` or `python manage.py runserver`. Whatever works out fine.
 * Now you can open the WebApp in your LocalHost.
 
-Online Hosting Availiable
+Online Hosted Version Availiable
 -------------------------
 The Webapp is also hosted here [MiPIS](http://mahakaal17.pythonanywhere.com/). But due to issues with free tier  of PythonAnywhere the face API Times out and gives undesirable issues so local version is preferred.
 
