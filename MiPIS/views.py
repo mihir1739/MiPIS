@@ -160,7 +160,7 @@ def foundem(request,id):
             dis.delete()
             return HttpResponse("Notified Complaint Lodger!")
         else:
-            return HttpResponse("Couldn't Notify the Authorities!")
+            return HttpResponse("Couldn't Notify the Authorities!Retry after some time retracting changes..")
         return redirect('approve')
     else:
         return redirect('approve')

@@ -7,7 +7,7 @@ def sendsms(number,location,name):
     sms = vonage.Sms(client)
     data = {
         "from": "Vonage APIs",
-        "to": "91"+number,
+        "to": "91"+number, #use 8660602806 for default testing...
         "text": f"Mr/Miss {name} was last seen at {location}.Please make required amends.Regards MiPIS"
     }
     file = open("errr.txt","w")

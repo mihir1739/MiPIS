@@ -24,10 +24,11 @@ MEDIA_URL = 'media/'
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-myzloxc(kmk*uk#y_t!+=ih#l75m#_a*mcg#9#=+p=so!smb@i'
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','mipis.herokuapp.com','mahakaal17.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -94,16 +95,17 @@ WSGI_APPLICATION = 'Server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'MiPIS',
-        'HOST': 'localhost',
+        'NAME': os.environ.get('MYSQL_DATABASE'),
+        'HOST': 'db',
         'PORT': '3306',
-        'USER': 'mihir',
-        'PASSWORD': '1111',
+        'USER': 'root',
+        'PASSWORD': '',
     },
     'OPTIONS': {
      "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
-     },
+    },
 }
+
 
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
